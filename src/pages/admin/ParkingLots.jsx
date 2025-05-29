@@ -1,9 +1,37 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import PageHeader from '../../components/PageHeader';
 import ActionButtons from '../../components/ActionButtons';
 
 const ParkingLots = () => {
+  const navigate = useNavigate();
+
+  const lots = [
+    {
+      id: 'lot001',
+      name: 'Airport Lot A',
+      vendor: 'Ali Khan',
+      airport: 'LHE',
+      pricing: '24-Hour',
+      payment: 'Online',
+      status: 'Active',
+    },
+    {
+      id: 'lot002',
+      name: 'Lot B - DHA',
+      vendor: 'Sarah Ahmed',
+      airport: 'ISB',
+      pricing: 'Day-End',
+      payment: 'On-site',
+      status: 'Active',
+    },
+  ];
+
+  const handleViewClick = (lot) => {
+    navigate(`/admin/lots/${lot.id}`);
+  };
+
   return (
     <div style={{ display: 'flex' }}>
       <Sidebar />
@@ -38,46 +66,40 @@ const ParkingLots = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td style={tdStyle}>Airport Lot A</td>
-                <td style={tdStyle}>Ali Khan</td>
-                <td style={tdStyle}>LHE</td>
-                <td style={tdStyle}>24-Hour</td>
-                <td style={tdStyle}>Online</td>
-                <td style={tdStyle}>Active</td>
-                <td style={tdStyle}>
-                  <div style={{ display: 'flex', gap: '6px' }}>
-                    <ActionButtons
-                      actions={[
-                        { label: 'View', color: '#4B5563', onClick: () => console.log('View Airport Lot A') },
-                        { label: 'Edit', color: '#0EA5E9', onClick: () => console.log('Edit Airport Lot A') },
-                        { label: 'Disable', color: '#DC2626', onClick: () => console.log('Disable Airport Lot A') },
-                      ]}
-                      rowData={{ name: 'Airport Lot A' }}
-                    />
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td style={tdStyle}>Lot B - DHA</td>
-                <td style={tdStyle}>Sarah Ahmed</td>
-                <td style={tdStyle}>ISB</td>
-                <td style={tdStyle}>Day-End</td>
-                <td style={tdStyle}>On-site</td>
-                <td style={tdStyle}>Active</td>
-                <td style={tdStyle}>
-                  <div style={{ display: 'flex', gap: '6px' }}>
-                    <ActionButtons
-                      actions={[
-                        { label: 'View', color: '#4B5563', onClick: () => console.log('View Lot B - DHA') },
-                        { label: 'Edit', color: '#0EA5E9', onClick: () => console.log('Edit Lot B - DHA') },
-                        { label: 'Disable', color: '#DC2626', onClick: () => console.log('Disable Lot B - DHA') },
-                      ]}
-                      rowData={{ name: 'Lot B - DHA' }}
-                    />
-                  </div>
-                </td>
-              </tr>
+              {lots.map((lot) => (
+                <tr key={lot.id}>
+                  <td style={tdStyle}>{lot.name}</td>
+                  <td style={tdStyle}>{lot.vendor}</td>
+                  <td style={tdStyle}>{lot.airport}</td>
+                  <td style={tdStyle}>{lot.pricing}</td>
+                  <td style={tdStyle}>{lot.payment}</td>
+                  <td style={tdStyle}>{lot.status}</td>
+                  <td style={tdStyle}>
+                    <div style={{ display: 'flex', gap: '6px' }}>
+                      <ActionButtons
+                        actions={[
+                          {
+                            label: 'View',
+                            color: '#4B5563',
+                            onClick: () => handleViewClick(lot),
+                          },
+                          {
+                            label: 'Edit',
+                            color: '#0EA5E9',
+                            onClick: () => alert(`Edit ${lot.name}`),
+                          },
+                          {
+                            label: 'Disable',
+                            color: '#DC2626',
+                            onClick: () => alert(`Disable ${lot.name}`),
+                          },
+                        ]}
+                        rowData={lot}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -90,21 +112,21 @@ const thStyle = {
   textAlign: 'left',
   padding: '12px',
   borderBottom: '1px solid #E2E8F0',
-  fontWeight: '600'
+  fontWeight: '600',
 };
 
 const tdStyle = {
   textAlign: 'left',
   padding: '12px',
   borderBottom: '1px solid #E2E8F0',
-  verticalAlign: 'top'
+  verticalAlign: 'top',
 };
 
 const inputStyle = {
   padding: '8px',
   borderRadius: '6px',
   border: '1px solid #ccc',
-  minWidth: '200px'
+  minWidth: '200px',
 };
 
 export default ParkingLots;

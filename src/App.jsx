@@ -8,11 +8,12 @@ import Bookings from './pages/admin/Bookings';
 import Payouts from './pages/admin/Payouts';
 import Settings from './pages/admin/Settings';
 import TaxesCharges from './pages/admin/TaxesCharges';
-
 import UserDetail from './pages/admin/UserDetail';
 import LotDetail from './pages/admin/LotDetail';
 import BookingDetail from './pages/admin/BookingDetail';
 import PayoutReceipt from './pages/admin/PayoutReceipt';
+import VendorDetail from './pages/admin/VendorDetail';
+
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
       <Route path="/admin/payouts/:id" element={<PayoutReceipt />} />
       <Route path="/admin/settings" element={<Settings />} />
       <Route path="/admin/settings/taxes" element={<TaxesCharges />} />
+      <Route path="/admin/vendors/:id" element={<VendorDetail />} />
       <Route path="*" element={<div>404 - Not Found</div>} />
     </Routes>
   );
