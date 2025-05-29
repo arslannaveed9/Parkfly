@@ -1,0 +1,71 @@
+:root {
+  --primary-color: #1E3A8A;
+  --accent-color: #2563EB;
+  --bg-light: #F1F5F9;
+  --text-dark: #1F2937;
+  --text-light: #F9FAFB;
+  --card-bg: #FFFFFF;
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color-scheme: light;
+  background-color: var(--bg-light);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: var(--accent-color);
+  text-decoration: none;
+}
+a:hover {
+  color: #1749cc;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--bg-light);
+  color: var(--text-dark);
+}
+
+h1 {
+  font-size: 2rem;
+  line-height: 1.3;
+  color: var(--text-dark);
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--accent-color);
+  color: white;
+  cursor: pointer;
+  transition: border-color 0.25s, background-color 0.25s;
+}
+button:hover {
+  background-color: #1749cc;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+  }
+  button {
+    background-color: var(--accent-color);
+  }
+}
