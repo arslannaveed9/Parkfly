@@ -4,12 +4,16 @@ const PageHeader = ({ title }) => {
   const styles = {
     container: {
       marginBottom: '2rem',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center'
     },
     heading: {
       margin: 0,
       fontSize: '1.75rem',
-      color: '#1F2937',
-    },
+      fontWeight: 600,
+      color: '#1F2937'
+    }
   };
 
   return (
@@ -20,3 +24,4 @@ const PageHeader = ({ title }) => {
 };
 
 export default PageHeader;
+

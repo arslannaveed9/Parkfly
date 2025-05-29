@@ -1,15 +1,15 @@
 import React from 'react';
 import Sidebar from '../../components/Sidebar';
+import PageHeader from '../../components/PageHeader';
 
 const Settings = () => {
   return (
     <div style={{ display: 'flex' }}>
       <Sidebar />
-      <div style={{ marginLeft: '260px', padding: '1rem 2rem 2rem 2rem', width: '100%', boxSizing: 'border-box' }}>
-        <div className="page-header" style={{ marginBottom: '2rem' }}>
-          <h1 style={{ fontSize: '1.75rem' }}>Platform Settings</h1>
-        </div>
+      <div style={{ marginLeft: '260px', padding: '2rem', width: '100%', boxSizing: 'border-box' }}>
+          <PageHeader title="Platform Settings" />
 
+        {/* Company Info */}
         <div style={sectionStyle}>
           <h2>Company Information</h2>
           <div style={formGroupStyle}>
@@ -31,6 +31,7 @@ const Settings = () => {
           <button style={buttonStyle}>Save Company Settings</button>
         </div>
 
+        {/* System Preferences */}
         <div style={sectionStyle}>
           <h2>System Preferences</h2>
           <div style={formGroupStyle}>
@@ -48,6 +49,7 @@ const Settings = () => {
           <button style={buttonStyle}>Save Preferences</button>
         </div>
 
+        {/* Airports */}
         <div style={sectionStyle}>
           <h2>Manage Airports</h2>
           <div style={formGroupStyle}>
@@ -55,6 +57,41 @@ const Settings = () => {
             <input type="text" placeholder="Enter Airport Name (e.g., LHE - Lahore)" style={inputStyle} />
           </div>
           <button style={buttonStyle}>Add Airport</button>
+        </div>
+
+        {/* Service Charges */}
+        <div style={sectionStyle}>
+          <h2>Service Charge Settings</h2>
+          <div style={formGroupStyle}>
+            <label style={labelStyle}>Service Charge Type</label>
+            <select style={inputStyle}>
+              <option value="flat">Flat Rate</option>
+              <option value="percentage">Percentage</option>
+            </select>
+          </div>
+          <div style={formGroupStyle}>
+            <label style={labelStyle}>Value (e.g., 100 PKR or 10%)</label>
+            <input type="text" defaultValue="10%" style={inputStyle} />
+          </div>
+          <button style={buttonStyle}>Update Service Charge</button>
+        </div>
+
+        {/* Tax Settings */}
+        <div style={sectionStyle}>
+          <h2>Airport-wise Tax Settings</h2>
+          <div style={formGroupStyle}>
+            <label style={labelStyle}>Select Airport</label>
+            <select style={inputStyle}>
+              <option value="LHE">LHE - Lahore</option>
+              <option value="ISB">ISB - Islamabad</option>
+              <option value="KHI">KHI - Karachi</option>
+            </select>
+          </div>
+          <div style={formGroupStyle}>
+            <label style={labelStyle}>Tax Percentage</label>
+            <input type="text" defaultValue="5%" style={inputStyle} />
+          </div>
+          <button style={buttonStyle}>Update Airport Tax</button>
         </div>
       </div>
     </div>
@@ -77,18 +114,18 @@ const inputStyle = {
 
 const sectionStyle = {
   background: '#FFFFFF',
-  padding: '1.5rem',
+  padding: '1rem',
   borderRadius: '10px',
   boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-  marginBottom: '2rem'
-};
-
-const formGroupStyle = {
   marginBottom: '1rem'
 };
 
+const formGroupStyle = {
+  marginBottom: '0.75rem'
+};
+
 const buttonStyle = {
-  marginTop: '1rem',
+  marginTop: '0.5rem',
   padding: '10px 16px',
   background: '#2563EB',
   color: 'white',

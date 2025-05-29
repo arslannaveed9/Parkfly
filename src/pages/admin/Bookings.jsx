@@ -84,7 +84,7 @@ const Bookings = () => {
                     <div style={{ display: "flex", flexWrap: "nowrap", gap: "6px" }}>
                       <button style={buttonStyle("#4B5563")} onClick={() => handleViewClick(booking.id)}>View</button>
                       <button style={buttonStyle("#DC2626")}>Cancel</button>
-                      <button style={buttonStyle("#0EA5E9")}>Reset Pass</button>
+                      <button style={buttonStyle("#0EA5E9")}>Reschedule</button>
                     </div>
                   </td>
                 </tr>
