@@ -20,6 +20,16 @@ const PayoutReceipt = () => {
     });
   };
 
+  // Sample data (replace with dynamic props later)
+  const totalBookings = 45;
+  const totalDays = 122;
+  const baseRatePerDay = 10;
+  const totalBaseAmount = baseRatePerDay * totalDays;
+  const commission = totalBaseAmount * 0.10;
+  const serviceCharges = 6 * totalBookings;
+  const tax = totalBaseAmount * 0.05;
+  const netPaid = totalBaseAmount + tax;
+
   return (
     <div style={{ display: 'flex' }}>
       <Sidebar />
@@ -54,12 +64,19 @@ const PayoutReceipt = () => {
           <hr />
 
           <div style={{ marginTop: '1.5rem' }}>
-            <h3>Amount Breakdown</h3>
-            <p><strong>Total Bookings Amount:</strong> PKR 150,000</p>
-            <p><strong>Commission (10%):</strong> PKR 15,000</p>
-            <p><strong>Tax (5%):</strong> PKR 6,750</p>
+            <h3>Booking Summary (21 May - 26 May)</h3>
+            <p><strong>Total Number of Bookings:</strong> {totalBookings}</p>
+            <p><strong>Total Days Booked:</strong> {totalDays} days</p>
+            <p><strong>Base Rate per Day:</strong> $ {baseRatePerDay}</p>
+            <p><strong>Total Base Amount:</strong> $ {totalBaseAmount}</p>
+
+            <h3 style={{ marginTop: '1.5rem' }}>Amount Breakdown</h3>
+            <p><strong>Commission (10%):</strong> $ {commission.toFixed(2)}</p>
+            <p><strong>Service Charges:</strong> $ {serviceCharges.toFixed(2)}</p>
+            <p><strong>Tax Collected (5%):</strong> $ {tax.toFixed(2)}</p>
+
             <p style={{ fontSize: '1.2rem', marginTop: '1rem' }}>
-              <strong>Net Paid:</strong> <span style={{ color: '#2563EB' }}>PKR 128,250</span>
+              <strong>Total Payable:</strong> <span style={{ color: '#2563EB' }}>$ {netPaid.toFixed(2)}</span>
             </p>
           </div>
         </div>

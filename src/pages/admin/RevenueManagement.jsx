@@ -2,17 +2,26 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import PageHeader from '../../components/PageHeader';
+import { DateRange } from 'react-date-range';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+import { format } from 'date-fns';
 import { DollarSign, PieChart, Users, FileText } from 'lucide-react';
 
 const RevenueManagement = () => {
   const navigate = useNavigate();
 
-  // Filters for cards only
   const [cardLot, setCardLot] = useState('All');
   const [duration, setDuration] = useState('Monthly');
-  const [customRange, setCustomRange] = useState({ from: '', to: '' });
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [customRange, setCustomRange] = useState([
+    {
+      startDate: new Date(new Date().setDate(new Date().getDate() - 6)),
+      endDate: new Date(),
+      key: 'selection'
+    }
+  ]);
 
-  // Filters for table only
   const [search, setSearch] = useState('');
   const [airportFilter, setAirportFilter] = useState('All');
   const [statusFilter, setStatusFilter] = useState('All');
@@ -73,33 +82,25 @@ const RevenueManagement = () => {
             <option value="Airport Lot A">Airport Lot A</option>
             <option value="Lot B - DHA">Lot B - DHA</option>
           </select>
-          <select value={duration} onChange={(e) => setDuration(e.target.value)} style={filterStyle}>
+          <select
+            value={duration}
+            onChange={(e) => {
+              setDuration(e.target.value);
+              if (e.target.value === 'Custom') setShowCalendar(true);
+              else setShowCalendar(false);
+            }}
+            style={filterStyle}
+          >
             <option value="Monthly">Monthly</option>
             <option value="Custom">Custom Range</option>
           </select>
-          {duration === 'Custom' && (
-            <>
-              <input
-                type="date"
-                value={customRange.from}
-                onChange={(e) => setCustomRange({ ...customRange, from: e.target.value })}
-                style={filterStyle}
-              />
-              <input
-                type="date"
-                value={customRange.to}
-                onChange={(e) => setCustomRange({ ...customRange, to: e.target.value })}
-                style={filterStyle}
-              />
-            </>
-          )}
         </div>
 
         {/* Stat Cards */}
         <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
           {statCards.map((card, i) => (
             <div key={i} style={{
-              background: '#fff',
+              background: '#FFFFFF',
               borderRadius: '10px',
               padding: '1.5rem',
               flex: '1 1 250px',
@@ -107,13 +108,25 @@ const RevenueManagement = () => {
               boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between'
+              justifyContent: 'space-between',
+              gap: '1rem'
             }}>
               <div>
-                <p style={{ margin: 0, fontSize: '0.95rem', color: '#6B7280' }}>{card.title}</p>
-                <p style={{ margin: 0, fontSize: '1.5rem', fontWeight: 700 }}>{card.value}</p>
+                <h3 style={{ margin: 0, fontSize: '0.95rem', color: '#6B7280' }}>{card.title}</h3>
+                <p style={{ margin: 0, fontSize: '1.5rem', fontWeight: 700, color: '#1F2937' }}>{card.value}</p>
               </div>
-              <div style={{ background: card.bg, padding: '10px', borderRadius: '50%' }}>{card.icon}</div>
+              <div style={{
+                background: card.bg,
+                borderRadius: '50%',
+                width: '48px',
+                height: '48px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0
+              }}>
+                {card.icon}
+              </div>
             </div>
           ))}
         </div>
@@ -175,16 +188,42 @@ const RevenueManagement = () => {
             </tbody>
           </table>
         </div>
+
+        {/* Custom Range Calendar Popup */}
+        {showCalendar && (
+          <div style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 9999,
+            background: '#fff',
+            borderRadius: '12px',
+            padding: '1rem',
+            boxShadow: '0 10px 40px rgba(0,0,0,0.2)'
+          }}>
+            <DateRange
+              editableDateInputs={true}
+              onChange={item => setCustomRange([item.selection])}
+              moveRangeOnFirstSelection={false}
+              ranges={customRange}
+              rangeColors={['#3B82F6']}
+            />
+            <div style={{ textAlign: 'right', marginTop: '1rem' }}>
+              <button onClick={() => setShowCalendar(false)} style={actionButton('#3B82F6')}>Apply</button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 const filterStyle = {
-  padding: '8px',
+  padding: '8px 12px',
   borderRadius: '6px',
   border: '1px solid #ccc',
-  minWidth: '180px'
+  minWidth: '200px'
 };
 
 const thStyle = {
